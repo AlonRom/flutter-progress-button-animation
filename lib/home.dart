@@ -17,18 +17,42 @@ class ProgressButtonState extends State<Home> {
         ),
         body: new Center(
             child: new ProgressButton(
-                child: new Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      new Container(
-                        margin: const EdgeInsets.only(left: 20.0),
-                        child: Text(
-                          'Click...',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                      )
-                    ]),
+                child: new Row(children: <Widget>[
+                  new Container(
+                    margin: const EdgeInsets.only(left: 20.0),
+                    child: Text(
+                      'Click...',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                  ),
+                  new Container(
+                    margin: const EdgeInsets.only(left: 120.0),
+                    width: 22.0,
+                    height: 22.0,
+                    decoration: new BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  new Container(
+                    margin: const EdgeInsets.only(left: 20.0),
+                    width: 22.0,
+                    height: 22.0,
+                    decoration: new BoxDecoration(
+                      color: Colors.yellow,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  new Container(
+                    margin: const EdgeInsets.only(left: 20.0),
+                    width: 22.0,
+                    height: 22.0,
+                    decoration: new BoxDecoration(
+                      color: Colors.green,
+                      shape: BoxShape.circle,
+                    ),
+                  )
+                ]),
                 gradient: LinearGradient(
                     begin: FractionalOffset.topCenter,
                     end: FractionalOffset.bottomCenter,
