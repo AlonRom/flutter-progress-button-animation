@@ -13,7 +13,8 @@ class ProgressButton extends StatelessWidget {
     this.gradient,
     this.width = 320.0,
     this.height = 50.0,
-    this.onPressed, List<Widget> children,
+    this.onPressed,
+    List<Widget> children,
   }) : super(key: key);
 
   @override

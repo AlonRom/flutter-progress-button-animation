@@ -30,8 +30,12 @@ class ProgressButtonState extends State<Home> {
                     width: 22.0,
                     height: 22.0,
                     decoration: new BoxDecoration(
-                      color: Colors.red,
                       shape: BoxShape.circle,
+                      gradient: new LinearGradient(
+                        begin: FractionalOffset.center,
+                        end: FractionalOffset.topCenter,
+                        colors: [Colors.red, Colors.white],
+                      ),
                     ),
                   ),
                   new Container(
@@ -39,8 +43,12 @@ class ProgressButtonState extends State<Home> {
                     width: 22.0,
                     height: 22.0,
                     decoration: new BoxDecoration(
-                      color: Colors.yellow,
                       shape: BoxShape.circle,
+                      gradient: new LinearGradient(
+                        begin: FractionalOffset.center,
+                        end: FractionalOffset.topCenter,
+                        colors: [Colors.yellow, Colors.white],
+                      ),
                     ),
                   ),
                   new Container(
@@ -48,8 +56,12 @@ class ProgressButtonState extends State<Home> {
                     width: 22.0,
                     height: 22.0,
                     decoration: new BoxDecoration(
-                      color: Colors.green,
                       shape: BoxShape.circle,
+                      gradient: new LinearGradient(
+                        begin: FractionalOffset.center,
+                        end: FractionalOffset.topCenter,
+                        colors: [Colors.green, Colors.white],
+                      ),
                     ),
                   )
                 ]),
