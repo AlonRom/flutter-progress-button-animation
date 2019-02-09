@@ -16,13 +16,23 @@ class PhaseAnimation extends StatefulWidget {
   void Stop() {
     phaseState.stop();
   }
+
+  void Move(double dx) {
+    phaseState.move(dx);
+  }
 }
 
 class PhaseAnimationState extends State<PhaseAnimation>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
+  String _state = "processing";
+
   AnimationController _controller;
   Animation<double> _animation;
   Animation<double> _opacityAnimation;
+
+  AnimationController _controller2;
+  Animation<double> _animation2;
+  Animation<Offset> _phasePosition;
 
   @override
   void initState() {
@@ -31,6 +41,11 @@ class PhaseAnimationState extends State<PhaseAnimation>
         duration: const Duration(milliseconds: 1000), vsync: this);
     _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
     _opacityAnimation = Tween<double>(begin: 0.2, end: 1).animate(_controller);
+
+    _controller2 = new AnimationController(
+        duration: const Duration(milliseconds: 1500), vsync: this);
+    _animation2 =
+        CurvedAnimation(parent: _controller2, curve: Curves.easeInOut);
 
     _animation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -48,21 +63,41 @@ class PhaseAnimationState extends State<PhaseAnimation>
 
   @override
   Widget build(BuildContext context) {
-    return new FadeTransition(
-        opacity: _opacityAnimation,
-        child: new Container(
-          margin: const EdgeInsets.only(left: 10.0),
-          width: 22.0,
-          height: 22.0,
-          decoration: new BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: new LinearGradient(
-              begin: FractionalOffset.center,
-              end: FractionalOffset.topCenter,
-              colors: [widget.dominantColor, Colors.white],
+    if (_state == "processing") {
+      return new FadeTransition(
+          opacity: _opacityAnimation,
+          child: new Container(
+            margin: const EdgeInsets.only(left: 10.0),
+            width: 22.0,
+            height: 22.0,
+            decoration: new BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: new LinearGradient(
+                begin: FractionalOffset.center,
+                end: FractionalOffset.topCenter,
+                colors: [widget.dominantColor, Colors.white],
+              ),
             ),
-          ),
-        ));
+          ));
+    } else {
+      return new SlideTransition(
+          position: _phasePosition,
+          child: new FadeTransition(
+              opacity: _opacityAnimation,
+              child: new Container(
+                margin: const EdgeInsets.only(left: 10.0),
+                width: 22.0,
+                height: 22.0,
+                decoration: new BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: new LinearGradient(
+                    begin: FractionalOffset.center,
+                    end: FractionalOffset.topCenter,
+                    colors: [widget.dominantColor, Colors.white],
+                  ),
+                ),
+              )));
+    }
   }
 
   void run() {
@@ -71,5 +106,14 @@ class PhaseAnimationState extends State<PhaseAnimation>
 
   void stop() {
     _controller.stop();
+  }
+
+  void move(double dx) {
+    setState(() {
+      _state = "test";
+      _phasePosition = Tween<Offset>(begin: Offset.zero, end: Offset(dx, 0.0))
+          .animate(_controller2);
+      _controller2.forward();
+    });
   }
 }

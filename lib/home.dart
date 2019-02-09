@@ -15,6 +15,8 @@ class ProgressButtonState extends State<Home> {
   PhaseAnimation phaseTwo;
   PhaseAnimation phaseThree;
 
+  bool showCheckIcon = false;
+
   @override
   void initState() {
     super.initState();
@@ -41,7 +43,14 @@ class ProgressButtonState extends State<Home> {
                 ),
                 phaseOne,
                 phaseTwo,
-                phaseThree,
+                new Stack(children: <Widget>[
+                  phaseThree,
+                  Visibility(
+                    child:
+                        new Positioned(left: 9.0, child: new Icon(Icons.check)),
+                    visible: showCheckIcon,
+                  ),
+                ])
               ]),
               gradient: LinearGradient(
                   begin: FractionalOffset.topCenter,
@@ -64,8 +73,13 @@ class ProgressButtonState extends State<Home> {
                 phaseTwo.Stop();
                 await Future.delayed(const Duration(seconds: 5));
                 phaseThree.Stop();
+
+                phaseOne.Move(2.0);
+                phaseTwo.Move(1.0);
+
+                await Future.delayed(const Duration(seconds: 2));
                 setState(() {
-                  buttonText = "DONE";
+                  showCheckIcon = true;
                 });
               }),
         ));
