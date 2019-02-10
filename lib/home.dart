@@ -35,22 +35,34 @@ class ProgressButtonState extends State<Home> {
           child: new ProgressButton(
               child: new Row(children: <Widget>[
                 new Container(
-                  margin: const EdgeInsets.only(left: 30.0, right: 120),
+                  margin: const EdgeInsets.only(left: 30.0, right: 145),
                   child: Text(
                     buttonText,
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal),
                   ),
                 ),
-                phaseOne,
-                phaseTwo,
-                new Stack(children: <Widget>[
-                  phaseThree,
-                  Visibility(
-                    child:
-                        new Positioned(left: 9.0, child: new Icon(Icons.check)),
-                    visible: showCheckIcon,
+                Visibility(
+                  visible: !showCheckIcon,
+                  child: new Row(
+                    children: <Widget>[
+                      phaseOne,
+                      phaseTwo,
+                      phaseThree,
+                    ],
                   ),
-                ])
+                ),
+                Visibility(
+                    visible: showCheckIcon,
+                    child: new Container(
+                        margin: const EdgeInsets.only(left: 55.0),
+                        child: new Image.asset(
+                          'assets/images/done.png',
+                          width: 26,
+                          height: 26,
+                        )))
               ]),
               gradient: LinearGradient(
                   begin: FractionalOffset.topCenter,
@@ -77,9 +89,10 @@ class ProgressButtonState extends State<Home> {
                 phaseOne.Move(2.0);
                 phaseTwo.Move(1.0);
 
-                await Future.delayed(const Duration(seconds: 2));
+                await Future.delayed(const Duration(seconds: 1));
                 setState(() {
                   showCheckIcon = true;
+                  buttonText = "DONE";
                 });
               }),
         ));

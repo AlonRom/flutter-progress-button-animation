@@ -43,7 +43,7 @@ class PhaseAnimationState extends State<PhaseAnimation>
     _opacityAnimation = Tween<double>(begin: 0.2, end: 1).animate(_controller);
 
     _controller2 = new AnimationController(
-        duration: const Duration(milliseconds: 1500), vsync: this);
+        duration: const Duration(milliseconds: 1000), vsync: this);
     _animation2 =
         CurvedAnimation(parent: _controller2, curve: Curves.easeInOut);
 
@@ -67,9 +67,9 @@ class PhaseAnimationState extends State<PhaseAnimation>
       return new FadeTransition(
           opacity: _opacityAnimation,
           child: new Container(
-            margin: const EdgeInsets.only(left: 10.0),
-            width: 22.0,
-            height: 22.0,
+            margin: const EdgeInsets.only(left: 8.0),
+            width: 18.0,
+            height: 18.0,
             decoration: new BoxDecoration(
               shape: BoxShape.circle,
               gradient: new LinearGradient(
@@ -85,9 +85,9 @@ class PhaseAnimationState extends State<PhaseAnimation>
           child: new FadeTransition(
               opacity: _opacityAnimation,
               child: new Container(
-                margin: const EdgeInsets.only(left: 10.0),
-                width: 22.0,
-                height: 22.0,
+                margin: const EdgeInsets.only(left: 8.0),
+                width: 18.0,
+                height: 18.0,
                 decoration: new BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: new LinearGradient(
