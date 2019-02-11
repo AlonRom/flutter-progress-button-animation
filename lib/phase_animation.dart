@@ -58,6 +58,7 @@ class PhaseAnimationState extends State<PhaseAnimation>
 
   @override
   void dispose() {
+    _controller.dispose();
     super.dispose();
   }
 
