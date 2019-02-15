@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+enum PhaseState { Processing, Moving }
+
 class PhaseAnimation extends StatefulWidget {
   final PhaseAnimationState phaseState = PhaseAnimationState();
   final MaterialColor dominantColor;
@@ -9,112 +11,102 @@ class PhaseAnimation extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => phaseState;
 
-  void Run() {
+  void run() {
     phaseState.run();
   }
 
-  void Stop() {
+  void stop() {
     phaseState.stop();
   }
 
-  void Move(double dx) {
+  void move(double dx) {
     phaseState.move(dx);
   }
 }
 
 class PhaseAnimationState extends State<PhaseAnimation>
     with TickerProviderStateMixin {
-  String _state = "processing";
+  PhaseState _phaseState;
 
-  AnimationController _controller;
-  Animation<double> _animation;
+  AnimationController _blinkController;
+  Animation<double> _blinkAnimation;
   Animation<double> _opacityAnimation;
 
-  AnimationController _controller2;
-  Animation<double> _animation2;
+  AnimationController _moveController;
   Animation<Offset> _phasePosition;
 
   @override
   void initState() {
     super.initState();
-    _controller = new AnimationController(
-        duration: const Duration(milliseconds: 1000), vsync: this);
-    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
-    _opacityAnimation = Tween<double>(begin: 0.2, end: 1).animate(_controller);
 
-    _controller2 = new AnimationController(
-        duration: const Duration(milliseconds: 1000), vsync: this);
-    _animation2 =
-        CurvedAnimation(parent: _controller2, curve: Curves.easeInOut);
+    _phaseState = PhaseState.Processing;
 
-    _animation.addStatusListener((status) {
+    _blinkController = new AnimationController(
+        duration: const Duration(milliseconds: 1000), vsync: this);
+    _blinkAnimation =
+        CurvedAnimation(parent: _blinkController, curve: Curves.easeInOut);
+    _opacityAnimation =
+        Tween<double>(begin: 0.2, end: 1).animate(_blinkController);
+
+    _moveController = new AnimationController(
+        duration: const Duration(milliseconds: 1000), vsync: this);
+
+    _blinkAnimation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        _controller.reverse();
+        _blinkController.reverse();
       } else if (status == AnimationStatus.dismissed) {
-        _controller.forward();
+        _blinkController.forward();
       }
     });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _blinkController.dispose();
+    _moveController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_state == "processing") {
-      return new FadeTransition(
-          opacity: _opacityAnimation,
-          child: new Container(
-            margin: const EdgeInsets.only(left: 8.0),
-            width: 18.0,
-            height: 18.0,
-            decoration: new BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: new LinearGradient(
-                begin: FractionalOffset.center,
-                end: FractionalOffset.topCenter,
-                colors: [widget.dominantColor, Colors.white],
-              ),
+    var fadeTransition = new FadeTransition(
+        opacity: _opacityAnimation,
+        child: new Container(
+          margin: const EdgeInsets.only(left: 8.0),
+          width: 18.0,
+          height: 18.0,
+          decoration: new BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: new LinearGradient(
+              begin: FractionalOffset.center,
+              end: FractionalOffset.topCenter,
+              colors: [widget.dominantColor, Colors.white],
             ),
-          ));
+          ),
+        ));
+
+    if (_phaseState == PhaseState.Processing) {
+      return fadeTransition;
     } else {
       return new SlideTransition(
-          position: _phasePosition,
-          child: new FadeTransition(
-              opacity: _opacityAnimation,
-              child: new Container(
-                margin: const EdgeInsets.only(left: 8.0),
-                width: 18.0,
-                height: 18.0,
-                decoration: new BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: new LinearGradient(
-                    begin: FractionalOffset.center,
-                    end: FractionalOffset.topCenter,
-                    colors: [widget.dominantColor, Colors.white],
-                  ),
-                ),
-              )));
+          position: _phasePosition, child: fadeTransition);
     }
   }
 
   void run() {
-    _controller.forward();
+    _blinkController.forward();
   }
 
   void stop() {
-    _controller.stop();
+    _blinkController.stop();
   }
 
   void move(double dx) {
     setState(() {
-      _state = "test";
+      _phaseState = PhaseState.Moving;
       _phasePosition = Tween<Offset>(begin: Offset.zero, end: Offset(dx, 0.0))
-          .animate(_controller2);
-      _controller2.forward();
+          .animate(_moveController);
+      _moveController.forward();
     });
   }
 }

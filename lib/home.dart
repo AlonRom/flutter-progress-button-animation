@@ -76,18 +76,18 @@ class ProgressButtonState extends State<Home> {
                     1.0
                   ]),
               onPressed: () async {
-                phaseOne.Run();
+                phaseOne.run();
                 await Future.delayed(const Duration(seconds: 5));
-                phaseTwo.Run();
-                phaseOne.Stop();
+                phaseTwo.run();
+                phaseOne.stop();
                 await Future.delayed(const Duration(seconds: 5));
-                phaseThree.Run();
-                phaseTwo.Stop();
+                phaseThree.run();
+                phaseTwo.stop();
                 await Future.delayed(const Duration(seconds: 5));
-                phaseThree.Stop();
+                phaseThree.stop();
 
-                phaseOne.Move(2.0);
-                phaseTwo.Move(1.0);
+                phaseOne.move(2.0);
+                phaseTwo.move(1.0);
 
                 await Future.delayed(const Duration(seconds: 1));
                 setState(() {
