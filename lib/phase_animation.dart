@@ -42,11 +42,11 @@ class PhaseAnimationState extends State<PhaseAnimation>
     _phaseState = PhaseState.Processing;
 
     _blinkController = new AnimationController(
-        duration: const Duration(milliseconds: 1000), vsync: this);
+        duration: const Duration(milliseconds: 500), vsync: this);
     _blinkAnimation =
         CurvedAnimation(parent: _blinkController, curve: Curves.easeInOut);
     _opacityAnimation =
-        Tween<double>(begin: 0.2, end: 1).animate(_blinkController);
+        Tween<double>(begin: 0.4, end: 1).animate(_blinkController);
 
     _moveController = new AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
@@ -73,8 +73,8 @@ class PhaseAnimationState extends State<PhaseAnimation>
         opacity: _opacityAnimation,
         child: new Container(
           margin: const EdgeInsets.only(left: 8.0),
-          width: 18.0,
-          height: 18.0,
+          width: 20.0,
+          height: 20.0,
           decoration: new BoxDecoration(
             shape: BoxShape.circle,
             gradient: new LinearGradient(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_progress_button_animation/done_animation.dart';
 import 'package:flutter_progress_button_animation/phase_animation.dart';
 import 'package:flutter_progress_button_animation/progress_button.dart';
 
@@ -54,15 +55,7 @@ class ProgressButtonState extends State<Home> {
                     ],
                   ),
                 ),
-                Visibility(
-                    visible: showCheckIcon,
-                    child: new Container(
-                        margin: const EdgeInsets.only(left: 55.0),
-                        child: new Image.asset(
-                          'assets/images/done.png',
-                          width: 26,
-                          height: 26,
-                        )))
+                Visibility(visible: showCheckIcon, child: DoneAnimation())
               ]),
               gradient: LinearGradient(
                   begin: FractionalOffset.topCenter,
@@ -77,22 +70,23 @@ class ProgressButtonState extends State<Home> {
                   ]),
               onPressed: () async {
                 phaseOne.run();
-                await Future.delayed(const Duration(seconds: 5));
+                await Future.delayed(const Duration(milliseconds: 2500));
                 phaseTwo.run();
                 phaseOne.stop();
-                await Future.delayed(const Duration(seconds: 5));
+                await Future.delayed(const Duration(milliseconds: 2500));
                 phaseThree.run();
                 phaseTwo.stop();
-                await Future.delayed(const Duration(seconds: 5));
+                await Future.delayed(const Duration(milliseconds: 2500));
                 phaseThree.stop();
 
                 phaseOne.move(2.0);
                 phaseTwo.move(1.0);
 
-                await Future.delayed(const Duration(seconds: 1));
+                await Future.delayed(const Duration(milliseconds: 1000));
                 setState(() {
                   showCheckIcon = true;
                   buttonText = "DONE";
+                  new Home();
                 });
               }),
         ));
