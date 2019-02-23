@@ -58,17 +58,6 @@ class ProgressButtonState extends State<Home> {
                 ),
                 Visibility(visible: showCheckIcon, child: DoneAnimation())
               ]),
-              gradient: LinearGradient(
-                  begin: FractionalOffset.topCenter,
-                  end: FractionalOffset.bottomCenter,
-                  colors: [
-                    Colors.grey.withOpacity(1.0),
-                    Colors.black,
-                  ],
-                  stops: [
-                    0.0,
-                    1.0
-                  ]),
               onPressed: () async {
                 phaseOne.run();
                 setState(() {

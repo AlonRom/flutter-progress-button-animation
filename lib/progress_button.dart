@@ -23,7 +23,17 @@ class ProgressButton extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        gradient: gradient,
+        gradient: LinearGradient(
+            begin: FractionalOffset.topCenter,
+            end: FractionalOffset.bottomCenter,
+            colors: [
+              Colors.grey.withOpacity(1.0),
+              Colors.black,
+            ],
+            stops: [
+              0.0,
+              1.0
+            ]),
         borderRadius: new BorderRadius.circular(25.0),
       ),
       child: Material(
