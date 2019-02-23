@@ -11,7 +11,7 @@ class Home extends StatefulWidget {
 }
 
 class ProgressButtonState extends State<Home> {
-  String buttonText = "SYNC";
+  String buttonText = "START";
   PhaseAnimation phaseOne;
   PhaseAnimation phaseTwo;
   PhaseAnimation phaseThree;
@@ -36,7 +36,8 @@ class ProgressButtonState extends State<Home> {
           child: new ProgressButton(
               child: new Row(children: <Widget>[
                 new Container(
-                  margin: const EdgeInsets.only(left: 30.0, right: 145),
+                  margin: const EdgeInsets.only(left: 30.0, right: 85),
+                  width: 100.0,
                   child: Text(
                     buttonText,
                     style: TextStyle(
@@ -70,11 +71,20 @@ class ProgressButtonState extends State<Home> {
                   ]),
               onPressed: () async {
                 phaseOne.run();
+                setState(() {
+                  buttonText = "PHASE 1";
+                });
                 await Future.delayed(const Duration(milliseconds: 2500));
                 phaseTwo.run();
+                setState(() {
+                  buttonText = "PHASE 2";
+                });
                 phaseOne.stop();
                 await Future.delayed(const Duration(milliseconds: 2500));
                 phaseThree.run();
+                setState(() {
+                  buttonText = "PHASE 3";
+                });
                 phaseTwo.stop();
                 await Future.delayed(const Duration(milliseconds: 2500));
                 phaseThree.stop();
@@ -85,7 +95,7 @@ class ProgressButtonState extends State<Home> {
                 await Future.delayed(const Duration(milliseconds: 1000));
                 setState(() {
                   showCheckIcon = true;
-                  buttonText = "DONE";
+                  buttonText = "DONE!";
                 });
               }),
         ));
