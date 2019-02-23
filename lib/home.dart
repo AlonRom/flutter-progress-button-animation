@@ -86,7 +86,6 @@ class ProgressButtonState extends State<Home> {
                 setState(() {
                   showCheckIcon = true;
                   buttonText = "DONE";
-                  new Home();
                 });
               }),
         ));
