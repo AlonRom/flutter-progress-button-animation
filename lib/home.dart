@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_button_animation/done_animation.dart';
+import 'package:flutter_progress_button_animation/hex_color.dart';
 import 'package:flutter_progress_button_animation/phase_animation.dart';
 import 'package:flutter_progress_button_animation/progress_button.dart';
 
@@ -21,9 +22,9 @@ class ProgressButtonState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    phaseOne = new PhaseAnimation(Colors.red);
-    phaseTwo = new PhaseAnimation(Colors.yellow);
-    phaseThree = new PhaseAnimation(Colors.green);
+    phaseOne = new PhaseAnimation(HexColor("#A8F0FF"));
+    phaseTwo = new PhaseAnimation(HexColor("#A8F0FF"));
+    phaseThree = new PhaseAnimation(HexColor("#A8F0FF"));
   }
 
   @override

@@ -4,7 +4,7 @@ enum PhaseState { Processing, Moving }
 
 class PhaseAnimation extends StatefulWidget {
   final PhaseAnimationState phaseState = PhaseAnimationState();
-  final MaterialColor dominantColor;
+  final Color dominantColor;
 
   PhaseAnimation(this.dominantColor);
 
@@ -72,9 +72,9 @@ class PhaseAnimationState extends State<PhaseAnimation>
     var fadeTransition = new FadeTransition(
         opacity: _opacityAnimation,
         child: new Container(
-          margin: const EdgeInsets.only(left: 8.0),
-          width: 20.0,
-          height: 20.0,
+          margin: const EdgeInsets.only(left: 9.0),
+          width: 17.0,
+          height: 17.0,
           decoration: new BoxDecoration(
             shape: BoxShape.circle,
             gradient: new LinearGradient(

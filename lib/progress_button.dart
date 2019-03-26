@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_progress_button_animation/hex_color.dart';
 
 class ProgressButton extends StatelessWidget {
   final Widget child;
@@ -27,8 +28,10 @@ class ProgressButton extends StatelessWidget {
             begin: FractionalOffset.topCenter,
             end: FractionalOffset.bottomCenter,
             colors: [
-              Colors.grey.withOpacity(1.0),
-              Colors.black,
+              HexColor("#00C7E7"),
+              HexColor("#009CCD"),
+              //Colors.grey.withOpacity(1.0),
+              //Colors.black,
             ],
             stops: [
               0.0,
@@ -39,6 +42,7 @@ class ProgressButton extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
+            //splashColor: Colors.transparent,
             onTap: onPressed,
             child: Center(
               child: child,
